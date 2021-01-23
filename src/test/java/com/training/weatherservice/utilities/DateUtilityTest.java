@@ -1,13 +1,11 @@
 package com.training.weatherservice.utilities;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class DateUtilityTest {
-
+public class DateUtilityTest {
     @Test
-    void currentDate() {
-        assertNotNull(DateUtility.currentDate());
+    public void currentDate() {
+        Assert.assertNotNull(DateUtility.currentDate());
     }
 }

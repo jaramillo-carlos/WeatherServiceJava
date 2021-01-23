@@ -1,11 +1,14 @@
-package com.training.weatherservice;
-
-import org.junit.jupiter.api.Test;
+import com.training.weatherservice.WeatherServiceApplication;
+import org.junit.Test;
+import org.modelmapper.internal.util.Assert;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WeatherServiceApplicationTests {
+public class WeatherServiceApplicationTests {
 
   @Test
-  void contextLoads() {}
+  public void contextLoads() {
+    WeatherServiceApplication application = new WeatherServiceApplication();
+    Assert.notNull(application);
+  }
 }

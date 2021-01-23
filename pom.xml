@@ -58,12 +58,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <version>2.2.4.RELEASE</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
