@@ -20,8 +20,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -106,7 +104,6 @@ public class WeatherDataServiceImplTest {
         when(weatherDataDTO.getId()).thenReturn(id);
         when(repository.findById(id)).thenReturn(optional);
 
-
         service.saveOrUpdate(weatherDataDTO);
     }
 
@@ -126,12 +123,9 @@ public class WeatherDataServiceImplTest {
     }
 
     @Test
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void deleteAll() {
         doNothing().when(repository).deleteAll();
 
         service.deleteAll();
-
-        verify(repository, times(1));
     }
 }
