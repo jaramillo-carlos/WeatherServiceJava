@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
-@Table(name="weather_data_temperature")
+@Table(name="weather_data_temperatures")
 public class WeatherDataTemperature {
 
     @Id
