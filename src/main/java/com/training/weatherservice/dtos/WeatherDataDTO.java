@@ -1,5 +1,6 @@
 package com.training.weatherservice.dtos;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -13,5 +14,6 @@ public class WeatherDataDTO {
 
   private LocationDTO location;
 
-  private List<Double> temperature;
+  @JsonManagedReference
+  private List<WeatherDataTemperatureDTO> temperature;
 }

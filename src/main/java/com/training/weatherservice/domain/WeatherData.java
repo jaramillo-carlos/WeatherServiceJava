@@ -23,6 +23,6 @@ public class WeatherData {
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   private Location location;
 
-  @ElementCollection private List<Double> temperature;
-
+  @OneToMany(mappedBy = "weatherData", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<WeatherDataTemperature> temperature;
 }
