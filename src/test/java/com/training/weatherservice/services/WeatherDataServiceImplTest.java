@@ -2,7 +2,7 @@ package com.training.weatherservice.services;
 
 import com.training.weatherservice.domain.WeatherData;
 import com.training.weatherservice.dtos.WeatherDataDTO;
-import com.training.weatherservice.exceptions.DuplicatedException;
+import com.training.weatherservice.exceptions.NotFound;
 import com.training.weatherservice.repositories.WeatherDataRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.doNothing;
 import static org.powermock.api.mockito.PowerMockito.doReturn;
 import static org.powermock.api.mockito.PowerMockito.mock;
@@ -84,28 +86,20 @@ public class WeatherDataServiceImplTest {
         Assert.assertNotNull(service.findByDate(date));
     }
 
-    @Test(expected = DuplicatedException.class)
-    public void saveOrUpdateWhenThrow() {
-        WeatherDataDTO dto = mock(WeatherDataDTO.class);
-
-        when(dto.getId()).thenReturn(1L);
-        when(repository.findById(1L)).thenReturn(Optional.of(new WeatherData()));
-
-        service.saveOrUpdate(dto);
-    }
-
-    @Test
-    public void saveOrUpdate() {
-        Long id = 1L;
+    @Test(expected = NotFound.class)
+    public void findByDateWhenIsEmpty() {
+        LocalDate date = LocalDate.now();
+        WeatherData weatherData = mock(WeatherData.class);
         WeatherDataDTO weatherDataDTO = mock(WeatherDataDTO.class);
 
-        Optional<WeatherData> optional = Optional.empty();
+        List<WeatherData> list = Collections.emptyList();
 
-        when(weatherDataDTO.getId()).thenReturn(id);
-        when(repository.findById(id)).thenReturn(optional);
+        when(repository.findByDate(date)).thenReturn(list);
+        when(mapper.map(weatherData, WeatherDataDTO.class)).thenReturn(weatherDataDTO);
 
-        service.saveOrUpdate(weatherDataDTO);
+        Assert.assertNotNull(service.findByDate(date));
     }
+
 
     @Test
     public void deleteById() {
@@ -120,6 +114,8 @@ public class WeatherDataServiceImplTest {
         when(mapper.map(weatherData, WeatherDataDTO.class)).thenReturn(weatherDataDTO);
 
         spy.deleteById(id);
+
+        verify(repository, times(1)).deleteById(id);
     }
 
     @Test
@@ -127,5 +123,7 @@ public class WeatherDataServiceImplTest {
         doNothing().when(repository).deleteAll();
 
         service.deleteAll();
+
+        verify(repository, times(1)).deleteAll();
     }
 }

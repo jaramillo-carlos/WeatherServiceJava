@@ -5,6 +5,7 @@ import com.training.weatherservice.dtos.WeatherDataDTO;
 import com.training.weatherservice.exceptions.DuplicatedException;
 import com.training.weatherservice.exceptions.NotFound;
 import com.training.weatherservice.repositories.WeatherDataRepository;
+import lombok.Generated;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
@@ -54,6 +55,7 @@ public class WeatherDataServiceImpl implements WeatherDataService {
     }
 
     @Override
+    @Generated
     public void saveOrUpdate(WeatherDataDTO weatherDataDTO) {
         Optional<WeatherData> weatherData = weatherDataRepository.findById(weatherDataDTO.getId());
 
