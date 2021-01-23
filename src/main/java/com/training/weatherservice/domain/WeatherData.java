@@ -20,7 +20,7 @@ public class WeatherData {
   @DateTimeFormat(pattern="yyyy-MM-dd")
   private LocalDate date;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
   private Location location;
 
   @ElementCollection private List<Double> temperature;
