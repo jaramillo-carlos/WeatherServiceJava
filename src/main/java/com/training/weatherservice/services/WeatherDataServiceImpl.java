@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -42,10 +43,14 @@ public class WeatherDataServiceImpl implements WeatherDataService {
     }
 
     @Override
-    public WeatherDataDTO findByDate(LocalDate date) {
-        return weatherDataRepository.findByDate(date)
+    public List<WeatherDataDTO>  findByDate(LocalDate date) {
+        List<WeatherDataDTO> results = weatherDataRepository.findByDate(date)
+                .stream()
+                .filter(Objects::nonNull)
                 .map(weatherData -> mapper.map(weatherData, WeatherDataDTO.class))
-                .orElseThrow(NotFound::new);
+                .collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(results)) throw new NotFound();
+        return results;
     }
 
     @Override

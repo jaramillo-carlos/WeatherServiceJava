@@ -5,6 +5,7 @@ import com.training.weatherservice.dtos.WeatherDataDTO;
 import com.training.weatherservice.services.WeatherDataService;
 import com.training.weatherservice.utilities.ResponseBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class WeatherDataController {
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"date"})
-    public Response findByDate(@RequestParam(required = false) LocalDate date) {
+    public Response findByDate(@RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return builder.success(weatherDataService.findByDate(date));
     }
 
